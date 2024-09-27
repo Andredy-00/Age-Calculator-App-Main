@@ -3,7 +3,7 @@
 .form {
     width: 100%;
     display: grid;
-    gap: 3rem;
+    gap: 3.5rem;
 }
 
 .inputs {
@@ -16,26 +16,46 @@
 
 .inputs label {
     text-transform: uppercase;
-    font-weight: bold;
-    color: gray;
-    font-size: small;
+    font-weight: 700;
+    color: hsl(0, 1%, 44%);
+    font-size: 12px;
+    letter-spacing: 4px;
 }
 
 .inputs input {
     width: 100%;
+    margin-top: 6px;
     padding: 0 1rem 0 1rem;
     border-radius: 10px;
-    border: 1px solid gray;
+    border: 1px solid hsl(0, 0%, 86%);
     height: 3rem;
-    color: black;
+    color: hsl(0, 0%, 8%);
     font-weight: 800;
     font-size: large;
 }
 
+.inputs input:focus {
+    border: 1px solid hsl(259, 100%, 65%);
+    outline: none;
+    caret-color: hsl(259, 100%, 65%);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
 .inputs span {
-    color: red;
-    font-weight: 100;
+    color: hsl(0, 100%, 67%);
+    font-weight: 400;
     font-size: x-small;
+    display: none;
 }
 
 .content-submit {
@@ -55,4 +75,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.content-submit hr {
+    border: 1px solid hsl(0, 0%, 86%);
 }

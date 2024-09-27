@@ -1,0 +1,18 @@
+
+
+.render-date {
+    width: 100%;
+    padding: 0 0 4rem 2rem;
+    font-weight: 800;
+    font-size: 50px;
+}
+
+.render-date span {
+    color: hsl(259, 100%, 65%);
+    margin-right: 0.5rem;
+}
+
+.render-date p {
+    color: hsl(0, 0%, 8%);
+    height: 3.5rem;
+}

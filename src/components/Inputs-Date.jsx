@@ -5,17 +5,17 @@ export const InputsDate = () => {
     <form className="form">
       <div className="inputs">
         <label htmlFor="day">
-          day <input type="text" placeholder="DD" />
+          day <input type="number" placeholder="DD" />
           <span>Error</span>
         </label>
 
         <label htmlFor="month">
-          month <input type="text" placeholder="MM" />
+          month <input type="number" placeholder="MM" />
           <span>Error</span>
         </label>
 
         <label htmlFor="year">
-          year <input type="text" placeholder="YYYY" />
+          year <input type="number" placeholder="YYYY" />
           <span>Error</span>
         </label>
       </div>
