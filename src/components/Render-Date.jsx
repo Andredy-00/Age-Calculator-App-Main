@@ -1,12 +1,20 @@
+import { useCalculatorDate } from '../hook/useCalculatorDate';
 import './render-date.css';
 
+export const RenderDate = ( {fechaActual} ) => {
 
-export const RenderDate = () => {
+  const {años, meses, dias} = useCalculatorDate(fechaActual);
+
+  const isValidNumber = (value) => {
+    return value !== '' && !isNaN(Number(value));
+  }
+
   return (
     <div className="render-date">
-      <p><span>38</span>years</p>
-      <p><span>3</span>months</p>
-      <p><span>26</span>days</p>
+      <p>{isValidNumber(años) ? <span>{años}</span> : <span>- -</span>}years</p>
+      <p>{isValidNumber(meses) ? <span>{meses}</span> : <span>- -</span>}months</p>
+      <p>{isValidNumber(dias) ? <span>{dias}</span> : <span>- -</span>}days</p>
     </div>
   )
 }
+
