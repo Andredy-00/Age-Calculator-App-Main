@@ -17,3 +17,13 @@
   margin-bottom: 7rem;
   padding-top: 3rem;
 }
+
+@media (min-width: 800px) {
+  .board {
+    width: 32rem;
+    border-bottom-right-radius: 8rem;
+    padding-top: 2rem;
+    margin: 0;
+    gap: 1rem;;
+  }
+}

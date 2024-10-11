@@ -16,3 +16,10 @@
     color: hsl(0, 0%, 8%);
     height: 3.5rem;
 }
+
+@media (min-width: 800px ){
+    .render-date {
+        padding: 0rem 0rem 3rem 2rem;
+        font-size: 53px;
+    }
+}

@@ -96,3 +96,33 @@ input[type="number"] {
 .inputs .label-error input {
     border: 1px solid hsl(0, 100%, 67%);
 }
+
+@media ( min-width: 800px){
+
+    .form {
+        gap: 2rem;
+    }
+
+    .inputs {
+        width: 75%;
+        padding: 0em 2rem 0rem 2rem;
+    }
+
+    .inputs label {
+        font-size: 10px;
+    }
+
+    .inputs input {
+        border-radius: 5px;
+    }
+
+    .content-submit {
+        padding: 0rem 2rem 0rem 2rem;
+    }
+
+    .content-submit .submit {
+        width: 4rem;
+        height: 4rem;
+        left: 89%;
+    }
+}

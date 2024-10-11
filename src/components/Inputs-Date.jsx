@@ -15,7 +15,7 @@ export const InputsDate = ({ onfechaActual }) => {
   });
 
   const [errorsInvalid, setErrorsInvalid] = useState({
-    day: false,
+    day: false, 
     month: false,
     year: false,
   });
@@ -38,23 +38,25 @@ export const InputsDate = ({ onfechaActual }) => {
     };
 
     setErrorsEmpty(newErrors);
-    return errorsEmpty.day || errorsEmpty.month || errorsEmpty.year ? true : false;
+    return newErrors.day || newErrors.month || newErrors.year ? true : false;
   };
 
   const validInvalid = () => {
     const { day, month, year } = fechaNacimiento;
+    const añoActual = new Date().getFullYear();
     const newErrors = {
-      day: day < 1 || day > 31,
-      month: month < 1 || month > 12,
-      year: year > 2023,
+      day: (day < 1 && day != "") || day > 31,
+      month: (month < 1 && month != "") || month > 12,
+      year: year > añoActual || (year.length < 4 && year != ""),
     };
     setErrorsInvalid(newErrors);
-
+    return newErrors.day || newErrors.month || newErrors.year;
   }
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (validEmty()) return;
+    if (validEmty() || validInvalid()) return;
+    
     const { day, month, year } = fechaNacimiento;
     onfechaActual(`${year}-${month}-${day}`);
   };
@@ -62,7 +64,7 @@ export const InputsDate = ({ onfechaActual }) => {
   return (
     <form className="form" onSubmit={onSubmit}>
       <div className="inputs">
-        <label htmlFor="day" className={errorsEmpty.day ? "label-error": ""}>
+        <label htmlFor="day" className={errorsEmpty.day || errorsInvalid.day ? "label-error": ""}>
           day{" "}
           <input
             type="number"
@@ -70,10 +72,11 @@ export const InputsDate = ({ onfechaActual }) => {
             name="day"
             onChange={handleChangeFechaNacimiento}
           />
-          {errorsEmpty.day && <span>This field is required</span>}
+          {errorsEmpty.day && <span>this field is required</span>}
+          {errorsInvalid.day && <span>must be a valid day</span>}
         </label>
 
-        <label htmlFor="month" className={errorsEmpty.month ? "label-error" : ""}>
+        <label htmlFor="month" className={errorsEmpty.month || errorsInvalid.month? "label-error" : ""}>
           month{" "}
           <input
             type="number"
@@ -82,9 +85,10 @@ export const InputsDate = ({ onfechaActual }) => {
             onChange={handleChangeFechaNacimiento}
           />
           {errorsEmpty.month && <span>This field is required</span>}
+          {errorsInvalid.month && <span>must be a valid month</span>}
         </label>
 
-        <label htmlFor="year" className={errorsEmpty.year ? "label-error" : ""}>
+        <label htmlFor="year" className={errorsEmpty.year || errorsInvalid.year ? "label-error" : ""}>
           year{" "}
           <input
             type="number"
@@ -93,6 +97,7 @@ export const InputsDate = ({ onfechaActual }) => {
             onChange={handleChangeFechaNacimiento}
           />
           {errorsEmpty.year && <span>This field is required</span>}
+          {errorsInvalid.year && <span>must be in the past</span>}
         </label>
       </div>
 
