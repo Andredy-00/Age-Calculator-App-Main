@@ -32,7 +32,7 @@ export const InputsDate = ({ onfechaActual }) => {
     <form className="form" onSubmit={onSubmit}>
       <div className="inputs">
         <label htmlFor="day" className={errors.day ? "label-error" : ""}>
-          día{" "}
+          day{" "}
           <input
             type="number"
             placeholder="DD"
@@ -43,7 +43,7 @@ export const InputsDate = ({ onfechaActual }) => {
         </label>
 
         <label htmlFor="month" className={errors.month ? "label-error" : ""}>
-          mes{" "}
+          month{" "}
           <input
             type="number"
             name="month"
@@ -54,7 +54,7 @@ export const InputsDate = ({ onfechaActual }) => {
         </label>
 
         <label htmlFor="year" className={errors.year ? "label-error" : ""}>
-          año{" "}
+          year{" "}
           <input
             type="number"
             placeholder="AAAA"
