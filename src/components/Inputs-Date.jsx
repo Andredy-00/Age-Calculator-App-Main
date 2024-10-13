@@ -57,7 +57,7 @@ export const InputsDate = ({ onfechaActual }) => {
           year{" "}
           <input
             type="number"
-            placeholder="AAAA"
+            placeholder="YYYY"
             name="year"
             onChange={handleChangeFechaNacimiento}
           />
