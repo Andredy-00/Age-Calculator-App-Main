@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./inputs-date.css";
+import { useErrorsField } from "../hook/useErrorsField";
 
 export const InputsDate = ({ onfechaActual }) => {
   const [fechaNacimiento, setFechaNacimiento] = useState({
@@ -8,96 +9,59 @@ export const InputsDate = ({ onfechaActual }) => {
     year: "",
   });
 
-  const [errorsEmpty, setErrorsEmpty] = useState({
-    day: false,
-    month: false,
-    year: false,
-  });
-
-  const [errorsInvalid, setErrorsInvalid] = useState({
-    day: false, 
-    month: false,
-    year: false,
-  });
-
+  const { errors, validateAndUpdateErrors } = useErrorsField();
+  
   const handleChangeFechaNacimiento = (event) => {
     const { name, value } = event.target;
-    setFechaNacimiento({
-      ...fechaNacimiento,
+    setFechaNacimiento((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
+
+    validateAndUpdateErrors(name, value);
   };
-
-  const validEmty = () => {
-    const { day, month, year } = fechaNacimiento;
-
-    const newErrors = {
-      day: day === "",
-      month: month === "",
-      year: year === "",
-    };
-
-    setErrorsEmpty(newErrors);
-    return newErrors.day || newErrors.month || newErrors.year ? true : false;
-  };
-
-  const validInvalid = () => {
-    const { day, month, year } = fechaNacimiento;
-    const añoActual = new Date().getFullYear();
-    const newErrors = {
-      day: (day < 1 && day != "") || day > 31,
-      month: (month < 1 && month != "") || month > 12,
-      year: year > añoActual || (year.length < 4 && year != ""),
-    };
-    setErrorsInvalid(newErrors);
-    return newErrors.day || newErrors.month || newErrors.year;
-  }
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (validEmty() || validInvalid()) return;
-    
-    const { day, month, year } = fechaNacimiento;
-    onfechaActual(`${year}-${month}-${day}`);
-  };
+    if (Object.values(errors).some((error) => error !== null)) return;
 
+    const { day, month, year } = fechaNacimiento;
+    onfechaActual(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
+  };
   return (
     <form className="form" onSubmit={onSubmit}>
       <div className="inputs">
-        <label htmlFor="day" className={errorsEmpty.day || errorsInvalid.day ? "label-error": ""}>
-          day{" "}
+        <label htmlFor="day" className={errors.day ? "label-error" : ""}>
+          día{" "}
           <input
             type="number"
             placeholder="DD"
             name="day"
             onChange={handleChangeFechaNacimiento}
           />
-          {errorsEmpty.day && <span>this field is required</span>}
-          {errorsInvalid.day && <span>must be a valid day</span>}
+          {errors.day && <span>{errors.day}</span>}
         </label>
 
-        <label htmlFor="month" className={errorsEmpty.month || errorsInvalid.month? "label-error" : ""}>
-          month{" "}
+        <label htmlFor="month" className={errors.month ? "label-error" : ""}>
+          mes{" "}
           <input
             type="number"
             name="month"
             placeholder="MM"
             onChange={handleChangeFechaNacimiento}
           />
-          {errorsEmpty.month && <span>This field is required</span>}
-          {errorsInvalid.month && <span>must be a valid month</span>}
+          {errors.month && <span>{errors.month}</span>}
         </label>
 
-        <label htmlFor="year" className={errorsEmpty.year || errorsInvalid.year ? "label-error" : ""}>
-          year{" "}
+        <label htmlFor="year" className={errors.year ? "label-error" : ""}>
+          año{" "}
           <input
             type="number"
-            placeholder="YYYY"
+            placeholder="AAAA"
             name="year"
             onChange={handleChangeFechaNacimiento}
           />
-          {errorsEmpty.year && <span>This field is required</span>}
-          {errorsInvalid.year && <span>must be in the past</span>}
+          {errors.year && <span>{errors.year}</span>}
         </label>
       </div>
 
